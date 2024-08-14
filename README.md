@@ -59,7 +59,7 @@ has_many :orders
 | prefecture_id      | integer | null: false |
 | shipping_date_id   | integer | null: false |
 | price              | integer | null: false |
-| user               | reference | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
 
 ### Associations
 
@@ -73,8 +73,8 @@ has_one :order
 | Column             | Type   | Options     |
 |--------------------|--------|-------------|
 | content            | text   | null: false |
-| user               | reference | null: false, foreign_key: true |
-| item               | reference | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
 
 ### Associations
 
@@ -86,8 +86,8 @@ belongs_to :item
 
 | Column             | Type   | Options     |
 |--------------------|--------|-------------|
-| user               | reference | null: false, foreign_key: true |
-| item               | reference | null: false, foreign_key: true |
+| user               | references | null: false, foreign_key: true |
+| item               | references | null: false, foreign_key: true |
 
 
 ### Associations
@@ -98,7 +98,7 @@ has_one :address
 
 
 
-## addressテーブル
+## addressesテーブル
 
 | Column             | Type    | Options     |
 |--------------------|---------|-------------|
@@ -108,7 +108,7 @@ has_one :address
 | block              | string  | null: false |
 | building           | string  |             |
 | phone_number       | string  | null: false |
-| order              | reference | null: false, foreign_key: true |
+| order              | references | null: false, foreign_key: true |
 
 ### Associations
 
