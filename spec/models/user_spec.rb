@@ -94,6 +94,11 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Family name kana is invalid')
       end
+      it 'family_name_kanaにカタカナ以外の文字（英数字）が含まれていると登録できない' do
+        @user.family_name_kana = 'aaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Family name kana is invalid')
+      end
       it 'first_name_kanaが空では登録できない' do
         @user.first_name_kana = ''
         @user.valid?
@@ -101,6 +106,11 @@ RSpec.describe User, type: :model do
       end
       it 'first_name_kanaがカタカナでなければ登録できない' do
         @user.first_name_kana = 'あああ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('First name kana is invalid')
+      end
+      it 'first_name_kanaにカタカナ以外の文字（英数字）が含まれていると登録できない' do
+        @user.first_name_kana = 'aaa'
         @user.valid?
         expect(@user.errors.full_messages).to include('First name kana is invalid')
       end
