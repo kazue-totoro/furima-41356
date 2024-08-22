@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user, only: [:edit, :destroy]
+  before_action :require_login, only: [:edit, :destroy]
 
   def index
     @items = Item.all.order('created_at DESC')
@@ -44,7 +44,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-  def authenticate_user
+  def require_login
     return if current_user.id == @item.user_id
 
     redirect_to action: :index
