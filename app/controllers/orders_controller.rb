@@ -1,9 +1,7 @@
 class OrdersController < ApplicationController
-  def index
-    @order = Item.find(params[:id])
-  end
+  before_action :set_item, only: [:index, :create]
 
-  def new
+  def index
     @order_address = OrderAddress.new
   end
 
@@ -13,11 +11,15 @@ class OrdersController < ApplicationController
       @order_address.save
       redirect_to root_path
     else
-      render :new, status: :unprocessable_entity
+      render :index, status: :unprocessable_entity
     end
   end
 
   private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
 
   def order_params
     params.require(:order_address).permit(:token, :post_code, :prefecture_id, :city, :block, :building, :phone_number).merge(
