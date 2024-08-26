@@ -30,13 +30,13 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order_address).permit(:token, :post_code, :prefecture_id, :city, :block, :building, :phone_number).merge(
+    params.require(:order_address).permit(:post_code, :prefecture_id, :city, :block, :building, :phone_number).merge(
       user_id: current_user.id, item_id: params[:item_id], token: params[:token]
     )
   end
 
   def pay_item
-    Payjp.api_key = 'sk_test_89bd2e47179f484493fcc000' # 自身のPAY.JPテスト秘密鍵を記述しましょう
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price, # 商品の値段
       card: order_params[:token], # カードトークン
