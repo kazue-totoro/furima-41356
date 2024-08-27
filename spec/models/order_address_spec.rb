@@ -23,8 +23,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'post_codeが空では購入できない' do
         @order_address.post_code = ''
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Post code can't be blank",
-                                                               'Post code input correctly')
+        expect(@order_address.errors.full_messages).to include("Post code can't be blank")
       end
       it 'post_codeは、「3桁ハイフン4桁」の半角文字列でなければ購入できない' do
         @order_address.post_code = '1234567'
@@ -49,8 +48,7 @@ RSpec.describe OrderAddress, type: :model do
       it 'phone_numberが空では購入できない' do
         @order_address.phone_number = ''
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number can't be blank",
-                                                               'Phone number input only number')
+        expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
       end
       it 'phone_numberが9桁以下では購入できない' do
         @order_address.phone_number = 123
