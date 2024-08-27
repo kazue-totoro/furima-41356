@@ -13,6 +13,10 @@ RSpec.describe OrderAddress, type: :model do
       it 'post_codeとprefecture_id、city、block、phone_numberが存在すれば登録できる' do
         expect(@order_address).to be_valid
       end
+      it '建物名が空でも登録できる' do
+        @order_address.building = ''
+        expect(@order_address).to be_valid
+      end
     end
 
     context '商品購入できない場合' do
@@ -48,13 +52,18 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Phone number can't be blank",
                                                                'Phone number input only number')
       end
-      it 'phone_numberは、10桁以上11桁以内の半角数値でなければ購入できない' do
+      it 'phone_numberが9桁以下では購入できない' do
         @order_address.phone_number = 123
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Phone number input only number')
       end
-      it 'phone_numberは、10桁以上11桁以内の半角数値でなければ購入できない' do
-        @order_address.phone_number = '１２３４５６７８９１０'
+      it 'phone_numberが12桁以上では購入できない' do
+        @order_address.phone_number = 123_456_789_012
+        @order_address.valid?
+        expect(@order_address.errors.full_messages).to include('Phone number input only number')
+      end
+      it 'phone_numberが半角数値でなければ購入できない' do
+        @order_address.phone_number = '１２３４５６７８９０１'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Phone number input only number')
       end
